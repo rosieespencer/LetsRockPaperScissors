@@ -24,8 +24,8 @@ const MOVES = new Map([
  * Check if at least one document element is missing.
  */
 function checkDocElements() {
-    if (gameDisplay === null | winnerDisplay === null | playButton === button | rock === null | paper === null | scissors === null) {
-        throw new error ("One or more document element is missing.")
+    if (gameDisplay === null || winnerDisplay === null || playButton === null || rock === null || paper === null || scissors === null) {
+        throw new Error("One or more document element is missing.")
     }
 }
 
@@ -82,6 +82,8 @@ function displayMoves() {
     scissors.textContent = "Scissors";
 
     winnerDisplay.textContent = "Select your move.";
+
+    playAndDisplayOutcome();
 }
 
 /**
@@ -89,8 +91,8 @@ function displayMoves() {
  */
 function setupInputListeners() {
     rock.addEventListener("click", () => playerChoice = "rock");
-    paper.actionEventListener("click", () => playerChoice = "paper");
-    scissors.actionEventListener("click", () => playerChoice = "scissors");
+    paper.addEventListener("click", () => playerChoice = "paper");
+    scissors.addEventListener("click", () => playerChoice = "scissors");
 }
 
 /**
@@ -115,7 +117,7 @@ async function waitForPlayerMove() {
  */
 function getComputerMove() {
     const randomIndex = Math.floor(Math.random() * MOVES.size);
-    const moves = [MOVES.keys()];
+    const moves = Array.from(MOVES.keys());
     const move = moves[randomIndex];
     
     if (!move) {
@@ -161,11 +163,18 @@ async function play() {
 
     if (playerMove === computerMove) {
         return "It's a tie!";
-    } else if (beats(playerMove, computerMove)) {
-        "You win!";
+    } else if (checkBeats(playerMove, computerMove)) {
+        return "You win!";
     }
 
     return "The computer wins!";
+}
+
+/**
+ * Plays the game then displays the outcome.
+ */
+async function playAndDisplayOutcome() {
+    winnerDisplay.textContent = await play();
 }
 
 startScreen();
