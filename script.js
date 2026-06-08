@@ -33,9 +33,6 @@ function checkDocElements() {
  * Sets up starting screen where player can press the play button to begin the game.
  */
 function startScreen() {
-    gameDisplay.style.visibility = "visible";
-    gameDisplay.textContent = "Ready?";
-
     playButton.style.visibility = "visible";
     playButton.textContent = "Play";
     playButton.addEventListener("click", startCountdown, {once: true});
@@ -51,7 +48,14 @@ function startScreen() {
  * Displays the words "Rock!", "Paper!", "Scissors!", "Shoot!", one at a time before starting the game.
  */
 async function startCountdown() {
+    gameDisplay.style.visibility = "visible";
     playButton.style.visibility = "hidden";
+
+    rock.style.visibility = "hidden";
+    paper.style.visibility = "hidden";
+    scissors.style.visibility = "hidden";
+
+    winnerDisplay.textContent = "";
 
     let countdownIndex = 0;
 
@@ -74,8 +78,11 @@ async function startCountdown() {
  */
 function displayMoves() {
     rock.style.visibility = "visible";
+    rock.textContent = "rock";
     paper.style.visibility = "visible";
+    paper.textContent = "paper";
     scissors.style.visibility = "visible";
+    scissors.textContent = "scissors";
 
     winnerDisplay.textContent = "Select your move.";
 
@@ -172,6 +179,16 @@ async function play() {
 async function playAndDisplayOutcome() {
     winnerDisplay.textContent = await play();
     gameDisplay.style.visibility = "hidden";
+    playAgain();
+}
+
+/**
+ * 
+ */
+function playAgain() {
+    playButton.style.visibility = "visible";
+    playButton.textContent = "Play again?";
+    playButton.addEventListener("click", startCountdown, {once: true});
 }
 
 startScreen();

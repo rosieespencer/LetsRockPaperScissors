@@ -99,3 +99,7 @@ h2 {
     font-weight: bold;
     color: #ffffff;
 }
+
+@media (min-width: 768px) {
+    
+}
