@@ -17,16 +17,16 @@ body {
     gap: 20px;
 }
 
-#game-display, #play-button {
+#game-display, #play-button, #winner-display, #empty-block {
     background-color: #f08c23;
     color: #ffffff;
-    border-radius: 8px;
     border: solid, #f08c23;
     text-align: center;
+    border-radius: 8px;
 }
 
 #game-display {
-    margin-top: 100px;
+    margin-top: 50px;
     width: 200px;
     height: 50px;
     align-content: center;
@@ -35,7 +35,9 @@ body {
 }
 
 #play-button {
-    font-size: 15px;
+    font-size: 20px;
+    width: 130px;
+    height: 40px;
 }
 
 #play-button:hover {
@@ -44,6 +46,7 @@ body {
 
 #options {
     margin-top: 50px;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: row;
     gap: 50px;
@@ -94,12 +97,22 @@ body {
     background-color: #435973;
 }
 
-h2 {
+#winner-display {
     font-family: 'Ultra', serif;
     font-weight: bold;
     color: #ffffff;
+    font-size: 20px;
+    width: 80vw;
+    height: 40px;
+    align-content: center;
+}
+
+#empty-block {
+    margin-top: 50px;
+    width: 80vw;
+    height: 40px;
 }
 
 @media (min-width: 768px) {
-    
+
 }
