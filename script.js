@@ -10,7 +10,10 @@ const rock = document.getElementById("rock");
 const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
 
-// Rock Paper Scissors moves and the moves they beat.
+/**
+ * The valid moves in the game and the moves they beat.
+ * A move may not both beat and be beaten by another move.
+ */
 const MOVES = new Map([
     ["rock", ["scissors"]],
     ["paper", ["rock"]],
@@ -120,6 +123,49 @@ function getComputerMove() {
     }
 
     return move;
+}
+
+/**
+ * Determine whether the player's move beats the computer's move.
+ * 
+ * @param {*} playerMove 
+ * @param {*} computerMove 
+ * @returns True if the player's move beats the computer's move, false otherwise.
+ */
+function checkBeats(playerMove, computerMove) {
+    const beats = MOVES.get(playerMove); // the moves the player's move beats
+
+    if (!beats) {
+        throw new Error(`The moves ${playerMove} beats have not been defined.`)
+    }
+
+    return beats.includes(computerMove);
+}
+
+/**
+ * Get the player and computer moves and determine the winner.
+ * 
+ * @returns The string to display who has won the game.
+ */
+async function play() {
+    const playerMove = await waitForPlayerMove();
+
+    winnerDisplay.textContent = "";
+
+    const computerMove = getComputerMove();
+
+    // Display the move selected by the player and the computer
+    rock.textContent = playerMove;
+    paper.textContent = "vs.";
+    scissors.textContent = computerMove;
+
+    if (playerMove === computerMove) {
+        return "It's a tie!";
+    } else if (beats(playerMove, computerMove)) {
+        "You win!";
+    }
+
+    return "The computer wins!";
 }
 
 startScreen();
