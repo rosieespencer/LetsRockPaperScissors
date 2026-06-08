@@ -9,6 +9,17 @@ const playButton = document.getElementById("play-button");
 const rock = document.getElementById("rock");
 const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
+const rockText = document.getElementById("rock-text");
+const paperText = document.getElementById("paper-text");
+const scissorsText = document.getElementById("scissors-text");
+const rockImg = document.getElementById("rock-img");
+const paperImg = document.getElementById("paper-img");
+const scissorsImg = document.getElementById("scissors-img");
+
+// Links to images of moves
+const rockLink= "assets/rock.png";
+const paperLink = "assets/paper.png";
+const scissorsLink = "assets/scissors.png";
 
 /**
  * The valid moves in the game and the moves they beat.
@@ -24,7 +35,7 @@ const MOVES = new Map([
  * Check if at least one document element is missing.
  */
 function checkDocElements() {
-    if (gameDisplay === null || winnerDisplay === null || playButton === null || rock === null || paper === null || scissors === null) {
+    if (gameDisplay === null || winnerDisplay === null || playButton === null || rock === null || paper === null || scissors === null || rockText === null || paperText === null || scissorsText === null || rockImg === null || paperImg === null || scissorsImg === null) {
         throw new Error("One or more document element is missing.")
     }
 }
@@ -78,11 +89,21 @@ async function startCountdown() {
  */
 function displayMoves() {
     rock.style.visibility = "visible";
-    rock.textContent = "rock";
+    rockText.textContent = "rock";
+    rockImg.src = rockLink;
+    rock.style.pointerEvents = "auto";
+
     paper.style.visibility = "visible";
-    paper.textContent = "paper";
+    paperText.textContent = "paper";
+    paperImg.style.visibility = "visible";
+    paperImg.style.height = "50px";
+    paperImg.style.width = "50px";
+    paper.style.pointerEvents = "auto";
+
     scissors.style.visibility = "visible";
-    scissors.textContent = "scissors";
+    scissorsText.textContent = "scissors";
+    scissorsImg.src = scissorsLink;
+    scissors.style.pointerEvents = "auto";
 
     winnerDisplay.textContent = "Select your move.";
 
@@ -148,6 +169,21 @@ function checkBeats(playerMove, computerMove) {
 }
 
 /**
+ * 
+ * @param {*} move The player or computer's move.
+ * @returns The link to the image representing that move.
+ */
+function getMoveImg(move) {
+    if (move === "rock") {
+        return rockLink;
+    } else if (move === "paper") {
+        return paperLink;
+    }
+
+    return scissorsLink;
+}
+
+/**
  * Get the player and computer moves and determine the winner.
  * 
  * @returns The string to display who has won the game.
@@ -160,9 +196,19 @@ async function play() {
     const computerMove = getComputerMove();
 
     // Display the move selected by the player and the computer
-    rock.textContent = playerMove;
-    paper.textContent = "vs.";
-    scissors.textContent = computerMove;
+    rockText.textContent = playerMove;
+    rockImg.src = getMoveImg(playerMove);
+    rock.style.pointerEvents = "none";
+
+    paperText.textContent = "vs.";
+    paperImg.style.visibility = "hidden";
+    paperImg.style.height = "0px";
+    paperImg.style.width = "0px";
+    paper.style.pointerEvents = "none";
+
+    scissorsText.textContent = computerMove;
+    scissorsImg.src = getMoveImg(computerMove);
+    scissors.style.pointerEvents = "none";
 
     if (playerMove === computerMove) {
         return "It's a tie!";
