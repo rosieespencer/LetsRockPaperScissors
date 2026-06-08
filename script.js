@@ -196,7 +196,7 @@ async function play() {
     const computerMove = getComputerMove();
 
     // Display the move selected by the player and the computer
-    rockText.textContent = playerMove;
+    rockText.textContent = "you";
     rockImg.src = getMoveImg(playerMove);
     rock.style.pointerEvents = "none";
 
@@ -206,7 +206,7 @@ async function play() {
     paperImg.style.width = "0px";
     paper.style.pointerEvents = "none";
 
-    scissorsText.textContent = computerMove;
+    scissorsText.textContent = "computer";
     scissorsImg.src = getMoveImg(computerMove);
     scissors.style.pointerEvents = "none";
 
@@ -216,7 +216,7 @@ async function play() {
         return "You win!";
     }
 
-    return "The computer wins!";
+    return "You lost!";
 }
 
 /**
