@@ -47,7 +47,7 @@ function startScreen() {
  * Displays the words "Rock!", "Paper!", "Scissors!", "Shoot!", one at a time before starting the game.
  */
 async function startCountdown() {
-    playButton.style.display = "none'";
+    playButton.style.display = "none";
 
     let countdownIndex = 0;
 
@@ -61,3 +61,46 @@ async function startCountdown() {
         await new Promise((resolve) => setTimeout(resolve, 1000)); // display next word after 1 second
     }
 }
+
+/**
+ * Displays the button for the player to select a move.
+ */
+function displayMoves() {
+    rock.style.display = "block";
+    rock.textContent = "Rock";
+
+    paper.style.display = "block";
+    paper.textContent = "Paper";
+
+    scissors.style.display = "block";
+    scissors.textContent = "Scissors";
+}
+
+/**
+ * Setup event listeners for the move buttons.
+ */
+function setupInputListeners() {
+    rock.addEventListener("click", () => playerChoice = "rock");
+    paper.actionEventListener("click", () => playerChoice = "paper");
+    scissors.actionEventListener("click", () => playerChoice = "scissors");
+}
+
+/**
+ * Waits until the player has selected a move.
+ * 
+ * @returns The player's chosen move.
+ */
+async function waitForPlayerMove() {
+    playerChoice = null;
+
+    while (!playerChoice) {
+        await new Promise((resolve) => setTimeout(resolve, 100)); // check if player has selected move
+    }
+
+    return playerChoice;
+}
+
+
+startScreen();
+displayMoves();
+setupInputListeners();
