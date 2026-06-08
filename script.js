@@ -60,6 +60,9 @@ async function startCountdown() {
         countdownIndex++;
         await new Promise((resolve) => setTimeout(resolve, 1000)); // display next word after 1 second
     }
+
+    displayMoves();
+    setupInputListeners();
 }
 
 /**
@@ -74,6 +77,8 @@ function displayMoves() {
 
     scissors.style.display = "block";
     scissors.textContent = "Scissors";
+
+    winnerDisplay.textContent = "Select your move.";
 }
 
 /**
@@ -100,7 +105,21 @@ async function waitForPlayerMove() {
     return playerChoice;
 }
 
+/**
+ * Selects a move for the computer. 
+ * 
+ * @returns The computer's move.
+ */
+function getComputerMove() {
+    const randomIndex = Math.floor(Math.random() * MOVES.size);
+    const moves = [MOVES.keys()];
+    const move = moves[randomIndex];
+    
+    if (!move) {
+        throw new Error("Computer move is undefined.");
+    }
+
+    return move;
+}
 
 startScreen();
-displayMoves();
-setupInputListeners();
